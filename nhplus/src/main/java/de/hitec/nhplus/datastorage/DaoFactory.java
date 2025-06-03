@@ -18,6 +18,10 @@ public class DaoFactory {
         return new TreatmentDao(ConnectionBuilder.getConnection());
     }
 
+    public FinishedTreatmentDao createFinishedTreatmentDao() {
+        return new FinishedTreatmentDao(ConnectionBuilder.getConnection());
+    }
+
     public PatientDao createPatientDAO() {
         return new PatientDao(ConnectionBuilder.getConnection());
     }
