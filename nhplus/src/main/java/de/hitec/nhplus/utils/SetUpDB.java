@@ -26,14 +26,15 @@ public class SetUpDB {
     public static void setUpDb() {
         Connection connection = ConnectionBuilder.getConnection();
         SetUpDB.wipeDb(connection);
+        SetUpDB.setUpTableCaregiver(connection);
         SetUpDB.setUpTablePatient(connection);
         SetUpDB.setUpTableTreatment(connection);
-        SetUpDB.setUpTableCaregiver(connection);
         SetUpDB.setUpTableFinishedTreatment(connection);
         SetUpDB.setUpPatients();
         SetUpDB.setUpCaregiver();
         SetUpDB.setUpTreatments();
         SetUpDB.setUpFinishedTreatments();
+
     }
 
     /**
@@ -41,9 +42,10 @@ public class SetUpDB {
      */
     public static void wipeDb(Connection connection) {
         try (Statement statement = connection.createStatement()) {
-            statement.execute("DROP TABLE patient");
-            statement.execute("DROP TABLE treatment");
-            statement.execute("DROP TABLE finished_treatment");
+            statement.execute("DROP TABLE IF EXISTS patient");
+            statement.execute("DROP TABLE IF EXISTS treatment");
+            statement.execute("DROP TABLE IF EXISTS finished_treatment");
+            statement.execute("DROP TABLE IF EXISTS caregiver");
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
         }
@@ -56,7 +58,7 @@ public class SetUpDB {
                 "   surname TEXT NOT NULL, " +
                 "   dateOfBirth TEXT NOT NULL, " +
                 "   carelevel TEXT NOT NULL, " +
-                "   roomnumber TEXT NOT NULL, " +
+                "   roomnumber TEXT NOT NULL " +
                 ");";
         try (Statement statement = connection.createStatement()) {
             statement.execute(SQL);
@@ -70,7 +72,7 @@ public class SetUpDB {
                 "   caregiverID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "   firstname TEXT NOT NULL, " +
                 "   surname TEXT NOT NULL, " +
-                "   phoneNumber TEXT NOT NULL, " +
+                "   phoneNumber TEXT NOT NULL " +
                 ");";
         try (Statement statement = connection.createStatement()) {
             statement.execute(SQL);
