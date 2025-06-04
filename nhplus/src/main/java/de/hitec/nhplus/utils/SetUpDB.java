@@ -1,6 +1,7 @@
 package de.hitec.nhplus.utils;
 
 import de.hitec.nhplus.datastorage.*;
+import de.hitec.nhplus.model.Caregiver;
 import de.hitec.nhplus.model.Patient;
 import de.hitec.nhplus.model.Treatment;
 
@@ -27,8 +28,10 @@ public class SetUpDB {
         SetUpDB.wipeDb(connection);
         SetUpDB.setUpTablePatient(connection);
         SetUpDB.setUpTableTreatment(connection);
+        SetUpDB.setUpTableCaregiver(connection);
         SetUpDB.setUpTableFinishedTreatment(connection);
         SetUpDB.setUpPatients();
+        SetUpDB.setUpCaregiver();
         SetUpDB.setUpTreatments();
         SetUpDB.setUpFinishedTreatments();
     }
@@ -54,6 +57,20 @@ public class SetUpDB {
                 "   dateOfBirth TEXT NOT NULL, " +
                 "   carelevel TEXT NOT NULL, " +
                 "   roomnumber TEXT NOT NULL, " +
+                ");";
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(SQL);
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
+    private static void setUpTableCaregiver(Connection connection) {
+        final String SQL = "CREATE TABLE IF NOT EXISTS caregiver (" +
+                "   caregiverID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "   firstname TEXT NOT NULL, " +
+                "   surname TEXT NOT NULL, " +
+                "   phoneNumber TEXT NOT NULL, " +
                 ");";
         try (Statement statement = connection.createStatement()) {
             statement.execute(SQL);
@@ -110,6 +127,16 @@ public class SetUpDB {
             dao.create(new Patient("Ahmet", "Yilmaz", convertStringToLocalDate("1941-02-22"), "3", "013"));
             dao.create(new Patient("Hans", "Neumann", convertStringToLocalDate("1955-12-12"), "2", "001"));
             dao.create(new Patient("Elisabeth", "Müller", convertStringToLocalDate("1958-03-07"), "5", "110"));
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    private static void setUpCaregiver() {
+        try {
+            CaregiverDAO dao = DaoFactory.getDaoFactory().createCaregiverDAO();
+            dao.create(new Caregiver("VornameTest", "NachnameTest", "123456"));
+            dao.create(new Caregiver("VornameTest2", "NachnameTest2", "67890"));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

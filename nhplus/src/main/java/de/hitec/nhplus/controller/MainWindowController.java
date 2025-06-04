@@ -1,3 +1,4 @@
+
 package de.hitec.nhplus.controller;
 
 import de.hitec.nhplus.Main;
@@ -36,6 +37,16 @@ public class MainWindowController {
     @FXML
     private void handleShowAllFinishedTreatments(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/AllFinishedTreatmentView.fxml"));
+        try {
+            mainBorderPane.setCenter(loader.load());
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleShowAllCaregivers(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/AllCaregiverView.fxml"));
         try {
             mainBorderPane.setCenter(loader.load());
         } catch (IOException exception) {
