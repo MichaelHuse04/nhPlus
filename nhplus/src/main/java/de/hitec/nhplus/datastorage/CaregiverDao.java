@@ -12,13 +12,13 @@ import java.util.ArrayList;
  * Implements the Interface <code>DaoImp</code>. Overrides methods to generate specific <code>PreparedStatements</code>,
  * to execute the specific SQL Statements.
  */
-public class CaregiverDAO extends DaoImp<Caregiver> {
+public class CaregiverDao extends DaoImp<Caregiver> {
     /**
      * The constructor initiates an object of <code>CaregiverDAO</code> and passes the connection to its super class.
      *
      * @param connection Object of <code>Connection</code> to execute the SQL-statements.
      */
-    public CaregiverDAO(Connection connection) {
+    public CaregiverDao(Connection connection) {
         super(connection);
     }
 
@@ -33,7 +33,7 @@ public class CaregiverDAO extends DaoImp<Caregiver> {
         PreparedStatement preparedStatement = null;
         try {
             final String SQL = "INSERT INTO caregiver (firstname, surname, phoneNumber) " +
-                    "VALUES (?, ?, ?, ?, ?)";
+                    "VALUES (?, ?, ?)";
             preparedStatement = this.connection.prepareStatement(SQL);
             preparedStatement.setString(1, caregiver.getFirstName());
             preparedStatement.setString(2, caregiver.getSurname());
@@ -153,7 +153,7 @@ public class CaregiverDAO extends DaoImp<Caregiver> {
     protected PreparedStatement getDeleteStatement(long caregiverID) {
         PreparedStatement preparedStatement = null;
         try {
-            final String SQL = "DELETE FROM caregiver WHERE pid = ?";
+            final String SQL = "DELETE FROM caregiver WHERE caregiverID = ?";
             preparedStatement = this.connection.prepareStatement(SQL);
             preparedStatement.setLong(1, caregiverID);
         } catch (SQLException exception) {

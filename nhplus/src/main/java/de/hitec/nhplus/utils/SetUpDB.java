@@ -134,7 +134,7 @@ public class SetUpDB {
 
     private static void setUpCaregiver() {
         try {
-            CaregiverDAO dao = DaoFactory.getDaoFactory().createCaregiverDAO();
+            CaregiverDao dao = DaoFactory.getDaoFactory().createCaregiverDAO();
             dao.create(new Caregiver("VornameTest", "NachnameTest", "123456"));
             dao.create(new Caregiver("VornameTest2", "NachnameTest2", "67890"));
         } catch (SQLException exception) {

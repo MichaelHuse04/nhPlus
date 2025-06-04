@@ -45,7 +45,7 @@ public class MainWindowController {
     }
 
     @FXML
-    private void handleShowAllCaregivers(ActionEvent event) {
+    private void handleShowAllCaregiver(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/AllCaregiverView.fxml"));
         try {
             mainBorderPane.setCenter(loader.load());

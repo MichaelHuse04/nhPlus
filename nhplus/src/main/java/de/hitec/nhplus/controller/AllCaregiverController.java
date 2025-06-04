@@ -2,7 +2,7 @@
 package de.hitec.nhplus.controller;
 
 import de.hitec.nhplus.datastorage.DaoFactory;
-import de.hitec.nhplus.datastorage.CaregiverDAO;
+import de.hitec.nhplus.datastorage.CaregiverDao;
 import de.hitec.nhplus.model.Caregiver;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -27,7 +27,7 @@ import java.sql.SQLException;
 public class AllCaregiverController {
 
     @FXML
-    private TableView<CaregiverDAO> tableView;
+    private TableView<Caregiver> tableView;
 
     @FXML
     private TableColumn<Caregiver, Integer> columnId;
@@ -57,7 +57,7 @@ public class AllCaregiverController {
     private TextField textFieldPhoneNumber;
 
     private final ObservableList<Caregiver> caregivers = FXCollections.observableArrayList();
-    private CaregiverDAO dao;
+    private CaregiverDao dao;
 
     /**
      * When <code>initialize()</code> gets called, all fields are already initialized. For example from the FXMLLoader
@@ -87,7 +87,7 @@ public class AllCaregiverController {
         this.buttonDelete.setDisable(true);
         this.tableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Caregiver>() {
             @Override
-            public void changed(ObservableValue<? extends Caregiver> observableValue, Caregiver oldCaregiver, Caregiver newCaregiver) {;
+            public void changed(ObservableValue<? extends Caregiver> observableValue, Caregiver oldCaregiver, Caregiver newCaregiver) {
                 de.hitec.nhplus.controller.AllCaregiverController.this.buttonDelete.setDisable(newCaregiver == null);
             }
         });
@@ -135,7 +135,7 @@ public class AllCaregiverController {
     }
 
     /**
-     * Updates a patient by calling the method <code>update()</code> of {@link CaregiverDAO}.
+     * Updates a patient by calling the method <code>update()</code> of {@link CaregiverDao}.
      *
      * @param event Event including the changed object and the change.
      */
@@ -149,7 +149,7 @@ public class AllCaregiverController {
 
     /**
      * Reloads all caregivers to the table by clearing the list of all caregivers and filling it again by all persisted
-     * caregivers, delivered by {@link CaregiverDAO}.
+     * caregivers, delivered by {@link CaregiverDao}.
      */
     private void readAllAndShowInTableView() {
         this.caregivers.clear();
@@ -162,7 +162,7 @@ public class AllCaregiverController {
     }
 
     /**
-     * This method handles events fired by the button to delete caregivers. It calls {@link CaregiverDAO} to delete the
+     * This method handles events fired by the button to delete caregivers. It calls {@link CaregiverDao} to delete the
      * patient from the database and removes the object from the list, which is the data source of the
      * <code>TableView</code>.
      */
@@ -182,7 +182,7 @@ public class AllCaregiverController {
     /**
      * This method handles the events fired by the button to add a caregiver. It collects the data from the
      * <code>TextField</code>s, creates an object of class <code>Caregiver</code> of it and passes the object to
-     * {@link CaregiverDAO} to persist the data.
+     * {@link CaregiverDao} to persist the data.
      */
     @FXML
     public void handleAdd() {
@@ -192,7 +192,8 @@ public class AllCaregiverController {
         try {
             this.dao.create(new Caregiver(firstName, surname, phoneNumber));
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            //exception.printStackTrace();
+            System.out.println(exception.getMessage());
         }
         readAllAndShowInTableView();
         clearTextfields();
