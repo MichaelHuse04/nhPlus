@@ -21,6 +21,10 @@ public class Main extends Application {
         showLoginWindow(); // Login-Fenster anzeigen
     }
 
+    /**
+     * showLoginWindow ist dafür da, damit beim Starten der Applikation die Login-Maske angezeigt wird.
+     */
+
     public void showLoginWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/LoginUI.fxml"));
