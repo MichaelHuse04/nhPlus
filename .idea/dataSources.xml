@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="nursingHome" uuid="a9421315-f434-4a41-8337-a5dedf37cdf0">
+    <data-source source="LOCAL" name="nursingHome" uuid="edf9df33-ce6c-4650-93f8-b2bb481c420a">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\marth\IdeaProjects\nhPlus\nhplus\db\nursingHome.db</jdbc-url>
-      <jdbc-additional-properties>
-        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
-      </jdbc-additional-properties>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="nursingHome [2]" uuid="5dc0c5fa-7b3f-4f6c-ab3c-e5470226971d">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\l.osmani\Desktop\nhPlus\db\nursingHome.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\marth\IdeaProjects\nhPlus\db\nursingHome.db</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
       </jdbc-additional-properties>
