@@ -8,6 +8,7 @@ import java.time.LocalTime;
 public class Treatment {
     private long tid;
     private final long pid;
+    private final long cid;
     private LocalDate date;
     private LocalTime begin;
     private LocalTime end;
@@ -19,15 +20,17 @@ public class Treatment {
      * to initiate objects, which are not persisted yet, because it will not have a treatment id (tid).
      *
      * @param pid Id of the treated patient.
+     * @param cid Id of the responsible caregiver.
      * @param date Date of the Treatment.
      * @param begin Time of the start of the treatment in format "hh:MM"
      * @param end Time of the end of the treatment in format "hh:MM".
      * @param description Description of the treatment.
      * @param remarks Remarks to the treatment.
      */
-    public Treatment(long pid, LocalDate date, LocalTime begin,
+    public Treatment(long pid, long cid, LocalDate date, LocalTime begin,
                      LocalTime end, String description, String remarks) {
         this.pid = pid;
+        this.cid = cid;
         this.date = date;
         this.begin = begin;
         this.end = end;
@@ -40,6 +43,7 @@ public class Treatment {
      * to initiate objects, which are already persisted and have a treatment id (tid).
      *
      * @param tid Id of the treatment.
+     * @param cid Id of the responsible caregiver.
      * @param pid Id of the treated patient.
      * @param date Date of the Treatment.
      * @param begin Time of the start of the treatment in format "hh:MM"
@@ -47,10 +51,11 @@ public class Treatment {
      * @param description Description of the treatment.
      * @param remarks Remarks to the treatment.
      */
-    public Treatment(long tid, long pid, LocalDate date, LocalTime begin,
+    public Treatment(long tid, long pid, long cid, LocalDate date, LocalTime begin,
                      LocalTime end, String description, String remarks) {
         this.tid = tid;
         this.pid = pid;
+        this.cid = cid;
         this.date = date;
         this.begin = begin;
         this.end = end;
@@ -59,12 +64,14 @@ public class Treatment {
     }
 
     public long getTid() {
-        return tid;
+        return this.tid;
     }
 
     public long getPid() {
         return this.pid;
     }
+
+    public long getCid() {return this.cid;}
 
     public String getDate() {
         return date.toString();
@@ -83,11 +90,11 @@ public class Treatment {
     }
 
     public void setBegin(String begin) {
-        this.begin = DateConverter.convertStringToLocalTime(begin);;
+        this.begin = DateConverter.convertStringToLocalTime(begin);
     }
 
     public void setEnd(String end) {
-        this.end = DateConverter.convertStringToLocalTime(end);;
+        this.end = DateConverter.convertStringToLocalTime(end);
     }
 
     public String getDescription() {
@@ -109,6 +116,7 @@ public class Treatment {
     public String toString() {
         return "\nBehandlung" + "\nTID: " + this.tid +
                 "\nPID: " + this.pid +
+                "\nCID: " + this.cid +
                 "\nDate: " + this.date +
                 "\nBegin: " + this.begin +
                 "\nEnd: " + this.end +

@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hitec.nhplus.controller.NewTreatmentController" stylesheets="@Application.css">
+<AnchorPane prefHeight="450.0" prefWidth="800.0" stylesheets="@Application.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hitec.nhplus.controller.NewTreatmentController">
    <children>
       <HBox alignment="TOP_CENTER" prefWidth="200.0" spacing="25.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
          <children>
@@ -66,6 +66,8 @@
             <DatePicker fx:id="datePicker" prefWidth="192.0" promptText="yyyy-mm-dd" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label fx:id="labelFirstName" text="Vorname" GridPane.columnIndex="1" />
             <Label fx:id="labelSurname" text="Nachname" GridPane.columnIndex="3" />
+            <ComboBox fx:id="comboBoxCaregiverSelection" prefHeight="23.0" prefWidth="195.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Pfleger:" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <HBox layoutX="298.0" layoutY="237.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="50.0">
