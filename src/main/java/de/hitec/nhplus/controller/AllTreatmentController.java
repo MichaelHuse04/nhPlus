@@ -57,6 +57,13 @@ public class AllTreatmentController {
     private final ObservableList<String> patientSelection = FXCollections.observableArrayList();
     private ArrayList<Patient> patientList;
 
+    /**
+     * Initializes the view components and prepares the treatment data for display.
+     * Sets the items for the patient selection ComboBox, initializes the column
+     * mappings for the TableView, loads all treatments from the data source,
+     * and sets up a listener to enable or disable the delete button based on the
+     * selected treatment. Also populates additional ComboBox data required for the view.
+     */
     public void initialize() {
         readAllAndShowInTableView();
         comboBoxPatientSelection.setItems(patientSelection);
