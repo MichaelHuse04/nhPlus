@@ -13,11 +13,8 @@ import java.util.TimerTask;
 
 public class UpdateTreatmentToFinishedTreatment {
 
-    Connection connection = ConnectionBuilder.getConnection();
-
 
     public UpdateTreatmentToFinishedTreatment() {
-        this.connection = connection;
     }
 
     public static void createCheckTimer() {
@@ -33,12 +30,13 @@ public class UpdateTreatmentToFinishedTreatment {
                     ResultSet resultSet = preparedStatement.executeQuery();
                     System.out.println("Checking treatment for updates...");
                     while (resultSet.next()) {
-                        String date = resultSet.getString(3);
-                        String timeEnd = resultSet.getString(5);
+                        String date = resultSet.getString(4);
+                        String timeEnd = resultSet.getString(6);
                         if (checkIfTreatmentIsFinished(date, timeEnd)) {
                             Treatment foundTreatment = new Treatment(
                                     resultSet.getLong("tid"),
                                     resultSet.getLong("pid"),
+                                    resultSet.getLong("cid"),
                                     DateConverter.convertStringToLocalDate(resultSet.getString("treatment_date")),
                                     DateConverter.convertStringToLocalTime(resultSet.getString("begin")),
                                     DateConverter.convertStringToLocalTime(resultSet.getString("end")),
@@ -79,15 +77,16 @@ public class UpdateTreatmentToFinishedTreatment {
         Connection connection = ConnectionBuilder.getConnection();
 
         try {
-            String copySQL = "INSERT INTO finished_treatment VALUES(?, ?, ?, ?, ?, ?, ?);";
+            String copySQL = "INSERT INTO finished_treatment VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement preparedCopyStatement = connection.prepareStatement(copySQL);
             preparedCopyStatement.setInt(1, (int) treatment.getTid());
             preparedCopyStatement.setInt(2, (int) treatment.getPid());
-            preparedCopyStatement.setString(3, treatment.getDate());
-            preparedCopyStatement.setString(4, treatment.getBegin());
-            preparedCopyStatement.setString(5, treatment.getEnd());
-            preparedCopyStatement.setString(6, treatment.getDescription());
-            preparedCopyStatement.setString(7, treatment.getRemarks());
+            preparedCopyStatement.setInt(3, (int) treatment.getCid());
+            preparedCopyStatement.setString(4, treatment.getDate());
+            preparedCopyStatement.setString(5, treatment.getBegin());
+            preparedCopyStatement.setString(6, treatment.getEnd());
+            preparedCopyStatement.setString(7, treatment.getDescription());
+            preparedCopyStatement.setString(8, treatment.getRemarks());
 
             preparedCopyStatement.execute();
             System.out.println("Moving treatment to finished treatment...");
