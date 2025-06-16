@@ -136,7 +136,7 @@ public class PatientDao extends DaoImp<Patient> {
                             "surname = ?, " +
                             "dateOfBirth = ?, " +
                             "carelevel = ?, " +
-                            "roomnumber = ?, " +
+                            "roomnumber = ? " +
                             "WHERE pid = ?";
             preparedStatement = this.connection.prepareStatement(SQL);
             preparedStatement.setString(1, patient.getFirstName());
