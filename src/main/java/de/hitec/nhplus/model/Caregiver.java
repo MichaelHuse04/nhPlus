@@ -24,7 +24,7 @@ public class Caregiver extends Person {
 
     /**
      * Constructor to initiate an object of class <code>Patient</code> with the given parameter. Use this constructor
-     * to initiate objects, which are already persisted and have a patient id (pid).
+     * to initiate objects, which are already persisted and have a caregiver id (caregiverID).
      *
      * @param caregiverID Caregiver id.
      * @param firstName First name of the caregiver.

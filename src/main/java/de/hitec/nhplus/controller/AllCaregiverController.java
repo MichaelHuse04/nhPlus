@@ -22,7 +22,7 @@ import java.sql.SQLException;
 
 
 /**
- * The <code>AllPatientController</code> contains the entire logic of the patient view. It determines which data is displayed and how to react to events.
+ * The <code>AllCaregiverController</code> contains the entire logic of the caregiver view. It determines which data is displayed and how to react to events.
  */
 public class AllCaregiverController {
 
@@ -135,7 +135,7 @@ public class AllCaregiverController {
     }
 
     /**
-     * Updates a patient by calling the method <code>update()</code> of {@link CaregiverDao}.
+     * Updates a caregiver by calling the method <code>update()</code> of {@link CaregiverDao}.
      *
      * @param event Event including the changed object and the change.
      */
@@ -163,7 +163,7 @@ public class AllCaregiverController {
 
     /**
      * This method handles events fired by the button to delete caregivers. It calls {@link CaregiverDao} to delete the
-     * patient from the database and removes the object from the list, which is the data source of the
+     * caregiver from the database and removes the object from the list, which is the data source of the
      * <code>TableView</code>.
      */
     @FXML

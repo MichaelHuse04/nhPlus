@@ -2,9 +2,12 @@
 package de.hitec.nhplus.controller;
 
 import de.hitec.nhplus.Main;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -21,6 +24,11 @@ public class MainWindowController {
             mainBorderPane.setCenter(loader.load());
         } catch (IOException exception) {
             exception.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Interner Systemfehler: AllPatientView.fxml konnte nicht geladen werden.", ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK) {
+                Platform.exit();
+            }
         }
     }
 
@@ -31,6 +39,11 @@ public class MainWindowController {
             mainBorderPane.setCenter(loader.load());
         } catch (IOException exception) {
             exception.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Interner Systemfehler: AllTreatmentView.fxml konnte nicht geladen werden.", ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK) {
+                Platform.exit();
+            }
         }
     }
 
@@ -41,6 +54,11 @@ public class MainWindowController {
             mainBorderPane.setCenter(loader.load());
         } catch (IOException exception) {
             exception.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Interner Systemfehler: AllFinishedTreatmentView.fxml konnte nicht geladen werden.", ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK) {
+                Platform.exit();
+            }
         }
     }
 
@@ -51,6 +69,11 @@ public class MainWindowController {
             mainBorderPane.setCenter(loader.load());
         } catch (IOException exception) {
             exception.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Interner Systemfehler: AllCaregiverView.fxml konnte nicht geladen werden.", ButtonType.OK);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK) {
+                Platform.exit();
+            }
         }
     }
 }
