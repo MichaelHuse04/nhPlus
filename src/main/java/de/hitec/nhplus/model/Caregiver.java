@@ -1,10 +1,8 @@
 package de.hitec.nhplus.model;
 
-import de.hitec.nhplus.utils.DateConverter;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-import java.time.LocalDate;
 
 public class Caregiver extends Person {
     private SimpleLongProperty caregiverID;
@@ -21,7 +19,7 @@ public class Caregiver extends Person {
      */
     public Caregiver(String firstName, String surname, String phoneNumber) {
         super(firstName, surname);
-        this.phoneNumber = new SimpleStringProperty(phoneNumber);;
+        this.phoneNumber = new SimpleStringProperty(phoneNumber);
     }
 
     /**
@@ -62,5 +60,10 @@ public class Caregiver extends Person {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber.set(phoneNumber);
+    }
+
+    @Override
+    public String toString() {
+        return this.getSurname();
     }
 }

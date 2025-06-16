@@ -1,6 +1,5 @@
-package de.hitec.nhplus.utils;
+package de.hitec.nhplus.datastorage;
 
-import de.hitec.nhplus.datastorage.*;
 import de.hitec.nhplus.model.Caregiver;
 import de.hitec.nhplus.model.Patient;
 import de.hitec.nhplus.model.Treatment;
@@ -18,23 +17,23 @@ import static de.hitec.nhplus.utils.DateConverter.convertStringToLocalTime;
  * up a connection to the database and calls setUpDb() to wipe the database, build up a clean database and fill the
  * database with some test data.
  */
-public class SetUpDB {
+public class SetUpTestDB {
     /**
      * This method wipes the database by dropping the tables. Then the method calls DDL statements to build it up from
      * scratch and DML statements to fill the database with hard coded test data.
      */
-    public static void setUpDb() {
-        Connection connection = ConnectionBuilder.getConnection();
-        SetUpDB.wipeDb(connection);
-        SetUpDB.setUpTableCaregiver(connection);
-        SetUpDB.setUpTablePatient(connection);
-        SetUpDB.setUpTableTreatment(connection);
-        SetUpDB.setUpTableFinishedTreatment(connection);
-        SetUpDB.setUpPatients();
-        SetUpDB.setUpCaregiver();
-        SetUpDB.setUpTreatments();
-        SetUpDB.setUpFinishedTreatments();
-
+    public static Connection setUpDb() {
+        Connection connection = ConnectionTestBuilder.getConnection();
+        SetUpTestDB.wipeDb(connection);
+        SetUpTestDB.setUpTableCaregiver(connection);
+        SetUpTestDB.setUpTablePatient(connection);
+        SetUpTestDB.setUpTableTreatment(connection);
+        SetUpTestDB.setUpTableFinishedTreatment(connection);
+        SetUpTestDB.setUpPatients();
+        SetUpTestDB.setUpCaregiver();
+        SetUpTestDB.setUpTreatments();
+        SetUpTestDB.setUpFinishedTreatments();
+        return connection;
     }
 
     /**
@@ -175,6 +174,6 @@ public class SetUpDB {
     }
 
     public static void main(String[] args) {
-        SetUpDB.setUpDb();
+        SetUpTestDB.setUpDb();
     }
 }

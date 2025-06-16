@@ -54,7 +54,7 @@ public class CaregiverDao extends DaoImp<Caregiver> {
     protected PreparedStatement getReadByIDStatement(long caregiverID) {
         PreparedStatement preparedStatement = null;
         try {
-            final String SQL = "SELECT * FROM caregiver WHERE pid = ?";
+            final String SQL = "SELECT * FROM caregiver WHERE caregiverID = ?";
             preparedStatement = this.connection.prepareStatement(SQL);
             preparedStatement.setLong(1, caregiverID);
         } catch (SQLException exception) {
@@ -129,7 +129,7 @@ public class CaregiverDao extends DaoImp<Caregiver> {
                     "UPDATE caregiver SET " +
                             "firstname = ?, " +
                             "surname = ?, " +
-                            "phoneNumber = ?, " +
+                            "phoneNumber = ? " +
                             "WHERE caregiverID = ?";
             preparedStatement = this.connection.prepareStatement(SQL);
             preparedStatement.setString(1, caregiver.getFirstName());
