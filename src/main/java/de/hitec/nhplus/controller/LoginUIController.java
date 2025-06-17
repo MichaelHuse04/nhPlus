@@ -36,7 +36,14 @@ public class LoginUIController {
     private int loginAttempts = 0;
 
     /**
-     * Sperrt das Login-Feld für 30 Seuknden nach 3 Fehlversuchen.
+     * Temporarily disables the login form after too many failed attempts.
+     *
+     * Displays a warning message and disables the username and password input fields
+     * for 30 seconds to prevent further login attempts.
+     * After the timeout, the fields are re-enabled and the error message is cleared. This logic runs on a background
+     * thread, and UI updates are performed on the JavaFX Application Thread.
+     *
+     * Note: Resets the {@code loginAttempts} counter after the timeout.
      */
     private void timeout() {
         errorLabel.setText("Zu viele Fehlversuche. Bitte warte 30 Sekunden...");
@@ -65,11 +72,18 @@ public class LoginUIController {
 
 
     /**
-     * Wird beim Klick auf den Login-Button aufgerufen.
-     * Prüft die Anmeldedaten und öffnet das Hauptfenster, wenn die Login-Daten stimmen.
+     * Handles the login process when the user submits their credentials.
+     *
+     * Retrieves the entered username and password, then checks their validity using the {@link UserDao}.
+     * If the login is successful, the main application window is loaded and shown.
+     * If the login fails, an error message is displayed and the failed attempt counter is incremented.
+     * After three failed attempts, the login form is temporarily disabled via the {@code timeout()} method.
+     *
+     *
+     * Note: This method is triggered by a JavaFX event (e.g., button press)
+     * and expects {@code usernameField}, {@code passwordField}, and {@code errorLabel}
+     * to be properly initialized in the corresponding FXML file.
      */
-
-
     @FXML
     private void handleLogin() {
         String username = usernameField.getText();

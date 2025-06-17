@@ -4,8 +4,8 @@ import java.sql.Connection;
 
 
 /**
- * Diese Klasse ist dafür da, um neue Benutzer zu erstellen und diese dann mit insertUser in die Datenbank einzufügen.
- * Sie wird einmalig ausgeführt, z.B. um einen Admin-Benutzer zu erstellen.
+ * This class is used to create new users and insert them into the database using insertUser.
+ * It is executed once, for example to create an admin user.
  */
 
 

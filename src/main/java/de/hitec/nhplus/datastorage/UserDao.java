@@ -12,8 +12,8 @@ public class UserDao {
     private final Connection connection;
 
     /**
-      * Konstruktor, der eine bestehende Datenbankverbindung übernimmt.
-      * @param connection Die Verbindung zur SQLite-Datenbank.
+     * Constructor that takes over an existing database connection.
+     * @param connection The connection to the SQLite database.
      */
 
 
@@ -23,12 +23,12 @@ public class UserDao {
 
 
     /**
-     * Prüfung des Benutzernamen und Passwort.
-     * Das Passwort wird mit dem gespeicherten Hash verglichen.
+     * Checks the username and password.
+     * The password is compared with the stored hash.
      *
-     * @param username Der eingegebene Benutzername.
-     * @param password Das eingegebene Passwort (im Klartext).
-     * @return true, wenn die Anmeldedaten korrekt sind, sonst false.
+     * @param username The entered username.
+     * @param password The entered password (in plain text).
+     * @return true if the login credentials are correct, otherwise false.
      */
 
 
@@ -51,12 +51,12 @@ public class UserDao {
 
 
     /**
-     * Fügt einen neuen Benutzer mit gehashtem Passwort in die Datenbank ein (Für den Datenschutz wichtig).
+     * Inserts a new user with a hashed password into the database (important for data protection).
      *
-     * @param username Der Benutzername.
-     * @param plainPassword Das Passwort im Klartext.
-     * @param role Die Rolle des Benutzers (z.B. "ADMIN").
-     * @return true, wenn der Benutzer erfolgreich eingefügt wurde, sonst false.
+     * @param username The username.
+     * @param plainPassword The password in plain text.
+     * @param role The role of the user (e.g., "ADMIN").
+     * @return true if the user was successfully inserted, otherwise false.
      */
 
 

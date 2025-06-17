@@ -60,9 +60,16 @@ public class AllCaregiverController {
     private CaregiverDao dao;
 
     /**
-     * When <code>initialize()</code> gets called, all fields are already initialized. For example from the FXMLLoader
-     * after loading an FXML-File. At this point of the lifecycle of the Controller, the fields can be accessed and
-     * configured.
+     * Initializes the caregiver management view and sets up all UI component bindings.
+     *
+     * This method:
+     *
+     *   - Loads all caregiver data and displays it in the table view
+     *   - Sets up {@code CellValueFactory} and {@code CellFactory} for each column to enable editing
+     *   - Binds the delete button to the selection state of the table view
+     *   - Binds the add button to the validity of the input fields using change listeners
+     *
+     * Note: This method is automatically called by the JavaFX framework when the controller is loaded.
      */
     public void initialize() {
         this.readAllAndShowInTableView();
@@ -208,6 +215,9 @@ public class AllCaregiverController {
         this.textFieldPhoneNumber.clear();
     }
 
+    /**
+     * Checks if the inputs are valid in <code>TextField</code>s.
+     */
     private boolean areInputDataValid() {
 
         return !this.textFieldFirstName.getText().isBlank() && !this.textFieldSurname.getText().isBlank() &&
