@@ -6,6 +6,7 @@ import de.hitec.nhplus.datastorage.PatientDao;
 import de.hitec.nhplus.datastorage.FinishedTreatmentDao;
 import de.hitec.nhplus.model.Patient;
 import de.hitec.nhplus.model.Treatment;
+import de.hitec.nhplus.utils.DateConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,6 +19,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -198,6 +202,26 @@ public class AllFinishedTreatmentController {
         }
     }
 
+    private void enableButtonIfNeeded() {
+
+        int index = this.tableView.getSelectionModel().getSelectedIndex();
+        Treatment finishedTreatment = this.finishedTreatments.get(index);
+
+        int comparedDateResult = DateConverter.convertLocalDateToString(
+                DateConverter.convertStringToLocalDate(
+                        finishedTreatment.getDate()
+                ).plusYears(10)).compareTo(LocalDate.now().toString());
+        int comparedTimeResult = finishedTreatment.getEnd().compareTo(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
+
+        if (comparedDateResult > 0){
+            buttonDelete.setDisable(true);
+        } else if (comparedDateResult == 0)  {
+            if (comparedTimeResult >= 0){
+                buttonDelete.setDisable(true);
+            }
+        }
+    }
+
     /**
      * Handles mouse click events on the treatment table view.
      *
@@ -211,11 +235,17 @@ public class AllFinishedTreatmentController {
      */
     @FXML
     public void handleMouseClick() {
+
+        this.buttonDelete.setDisable(true);
+        int index = this.tableView.getSelectionModel().getSelectedIndex();
+        Treatment finishedTreatments = this.finishedTreatments.get(index);
+
+
         tableView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2 && (tableView.getSelectionModel().getSelectedItem() != null)) {
-                int index = this.tableView.getSelectionModel().getSelectedIndex();
-                Treatment finishedTreatments = this.finishedTreatments.get(index);
                 treatmentWindow(finishedTreatments);
+            } else {
+                enableButtonIfNeeded();
             }
         });
     }
