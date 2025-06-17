@@ -18,6 +18,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class AllFinishedTreatmentController {
@@ -153,10 +156,27 @@ public class AllFinishedTreatmentController {
 
     @FXML
     public void handleMouseClick() {
+
+        int index = this.tableView.getSelectionModel().getSelectedIndex();
+        Treatment finishedTreatments = this.finishedTreatments.get(index);
+
+        int comparedDateResult = finishedTreatments.getDate().compareTo(LocalDate.now().plusYears(10).toString());
+        int comparedTimeResult = finishedTreatments.getEnd().compareTo(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
+        System.out.println(LocalDate.now().minusYears(10));
+        if (comparedDateResult < 0){
+            buttonDelete.setDisable(true);
+        } else if (comparedDateResult > 0) {
+            buttonDelete.setDisable(false);
+        } else {
+            if (comparedTimeResult < 0){
+                buttonDelete.setDisable(true);
+            } else {
+                buttonDelete.setDisable(false);
+            }
+        }
+
         tableView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2 && (tableView.getSelectionModel().getSelectedItem() != null)) {
-                int index = this.tableView.getSelectionModel().getSelectedIndex();
-                Treatment finishedTreatments = this.finishedTreatments.get(index);
                 treatmentWindow(finishedTreatments);
             }
         });

@@ -1,7 +1,6 @@
 package de.hitec.nhplus.controller;
 
 import de.hitec.nhplus.datastorage.DaoFactory;
-import de.hitec.nhplus.datastorage.FinishedTreatmentDao;
 import de.hitec.nhplus.datastorage.PatientDao;
 import de.hitec.nhplus.model.Patient;
 import de.hitec.nhplus.model.Treatment;
@@ -44,7 +43,7 @@ public class FinishedTreatmentController {
     private Patient patient;
     private Treatment finishedTreatment;
 
-    public void initializeController(AllFinishedTreatmentController controller, Stage stage, Treatment treatment) {
+    public void initializeController(AllFinishedTreatmentController controller, Stage stage, Treatment finishedTreatment) {
         this.stage = stage;
         this.controller= controller;
         PatientDao pDao = DaoFactory.getDaoFactory().createPatientDAO();
@@ -66,27 +65,6 @@ public class FinishedTreatmentController {
         this.textFieldEnd.setText(this.finishedTreatment.getEnd());
         this.textFieldDescription.setText(this.finishedTreatment.getDescription());
         this.textAreaRemarks.setText(this.finishedTreatment.getRemarks());
-    }
-
-    @FXML
-    public void handleChange(){
-        this.finishedTreatment.setDate(this.datePicker.getValue().toString());
-        this.finishedTreatment.setBegin(textFieldBegin.getText());
-        this.finishedTreatment.setEnd(textFieldEnd.getText());
-        this.finishedTreatment.setDescription(textFieldDescription.getText());
-        this.finishedTreatment.setRemarks(textAreaRemarks.getText());
-        doUpdate();
-        controller.readAllAndShowInTableView();
-        stage.close();
-    }
-
-    private void doUpdate(){
-        FinishedTreatmentDao dao = DaoFactory.getDaoFactory().createFinishedTreatmentDao();
-        try {
-            dao.update(finishedTreatment);
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
     }
 
     @FXML
