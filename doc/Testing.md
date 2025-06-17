@@ -31,6 +31,23 @@ https://markdown.de/ einsehen.
 
 ---
 
+## Testfälle Login-Funktion
+
+| Testfall-ID | Testbeschreibung | Testergebnis |
+|-------------|------------------|--------------|
+| TF_1 | **Erfolgreicher Login mit gültigen Zugangsdaten**<br>**Vorbedingung:** Ein registrierter Pfleger mit gültigen Login-Daten existiert<br>**Testschritte:**<br>1. Login-Maske öffnen<br>2. Benutzernamen und Passwort eingeben<br>3. Auf den Login-Button klicken<br>**Erwartetes Ergebnis:** Der Pfleger wird erfolgreich eingeloggt und auf die Startseite weitergeleitet | ✅ Erfolgreich |
+| TF_2 | **Fehlermeldung bei falschen Anmeldedaten**<br>**Vorbedingung:** Ein registrierter Pfleger mit gültigen Login-Daten existiert<br>**Testschritte:**<br>1. Login-Maske öffnen<br>2. Falschen Benutzernamen und Passwort eingeben<br>3. Auf den Login-Button klicken<br>**Erwartetes Ergebnis:** Eine Fehlermeldung wird angezeigt | ✅ Erfolgreich |
+| TF_3 | **Passwort ist verschlüsselt in der Datenbank gespeichert**<br>**Vorbedingung:** Ein registrierter Pfleger mit gültigen Login-Daten existiert<br>**Testschritte:**<br>1. Datenbank öffnen<br>2. Gespeicherte Passwörter überprüfen<br>**Erwartetes Ergebnis:** Passwörter sind verschlüsselt und nicht im Klartext lesbar | ✅ Erfolgreich |
+| TF_4 | **Fehlermeldung bei leerem Benutzernamen-Feld**<br>**Vorbedingung:** Die Login-Maske ist geöffnet<br>**Testschritte:**<br>1. Benutzername leer lassen, Passwort eingeben<br>2. Auf den Login-Button klicken<br>**Erwartetes Ergebnis:** Fehlermeldung erscheint, dass beide Felder ausgefüllt werden müssen | ✅ Erfolgreich |
+| TF_5 | **Fehlermeldung bei leerem Passwort-Feld**<br>**Vorbedingung:** Die Login-Maske ist geöffnet<br>**Testschritte:**<br>1. Passwort leer lassen, Benutzernamen eingeben<br>2. Auf den Login-Button klicken<br>**Erwartetes Ergebnis:** Fehlermeldung erscheint, dass beide Felder ausgefüllt werden müssen | ✅ Erfolgreich |
+| TF_6 | **Keine Neu-Registrierung über die Login-Maske möglich**<br>**Vorbedingung:** Die Login-Maske ist geöffnet<br>**Testschritte:**<br>1. Neue, nicht registrierte Zugangsdaten eingeben<br>2. Auf den Login-Button klicken<br>**Erwartetes Ergebnis:** Fehlermeldung wird angezeigt | ✅ Erfolgreich |
+| TF_7 | **Fehlermeldung bei komplett leeren Eingabefeldern**<br>**Vorbedingung:** Es existiert mindestens ein Account für einen Pfleger<br>**Testschritte:**<br>1. Beide Felder leer lassen<br>2. Auf den Login-Button klicken<br>**Erwartetes Ergebnis:** Fehlermeldung wird angezeigt | ✅ Erfolgreich |
+| TF_8 | **Mehrfach Fehlversuche führen zur Fehlermeldung und Timeout**<br>**Vorbedingung:** Die Login-Maske ist aufrufbar<br>**Testschritte:**<br>1. Falsche Zugangsdaten eingeben<br>2. Mehrfach (mind. 5x) auf Login klicken<br>**Erwartetes Ergebnis:** Fehlermeldung und Timeout werden angezeigt | ✅ Erfolgreich |
+
+---
+
+
+---
 ## Anmerkungen
 
 - Alle Tests wurden manuell durchgeführt.
