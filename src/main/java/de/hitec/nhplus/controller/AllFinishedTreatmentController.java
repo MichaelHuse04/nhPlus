@@ -24,6 +24,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * The <code>AllFinishedTreatmentController</code> contains the entire logic of the finished treatment view. It determines which data is displayed and how to react to events.
+ */
 public class AllFinishedTreatmentController {
 
     @FXML
@@ -61,6 +64,11 @@ public class AllFinishedTreatmentController {
     private final ObservableList<String> patientSelection = FXCollections.observableArrayList();
     private ArrayList<Patient> patientList;
 
+    /**
+     * When <code>initialize()</code> gets called, all fields are already initialized. For example from the FXMLLoader
+     * after loading an FXML-File. At this point of the lifecycle of the Controller, the fields can be accessed and
+     * configured.
+     */
     public void initialize() {
         readAllAndShowInTableView();
         comboBoxPatientSelection.setItems(patientSelection);
@@ -84,6 +92,10 @@ public class AllFinishedTreatmentController {
         this.createComboBoxData();
     }
 
+    /**
+     * Reloads all finished treatments to the table by clearing the list of all finished treatments and filling it again by all persisted
+     * finished treatments, delivered by {@link FinishedTreatmentDao}.
+     */
     public void readAllAndShowInTableView() {
         this.finishedTreatments.clear();
         comboBoxPatientSelection.getSelectionModel().select(0);
@@ -95,6 +107,15 @@ public class AllFinishedTreatmentController {
         }
     }
 
+    /**
+     * Populates the patient selection combo box with data from the database.
+     *
+     * Retrieves all patients using the {@link PatientDao} and adds their surnames
+     * to the {@code patientSelection} list. The entry {@code "alle"} (meaning "all")
+     * is added as the first item to allow selection of all patients.
+     *
+     * Assumes: {@code patientSelection} is a list backing a UI ComboBox.
+     */
     private void createComboBoxData() {
         PatientDao dao = DaoFactory.getDaoFactory().createPatientDAO();
         try {
@@ -108,7 +129,20 @@ public class AllFinishedTreatmentController {
         }
     }
 
-
+    /**
+     * Handles the selection event of the patient combo box.
+     *
+     * Based on the selected patient name from the combo box, this method either:
+     *
+     *   - Loads all finished treatments if {@code "alle"} ("all") is selected, or
+     *   - Loads only the finished treatments for the selected patient.
+     *
+     * The method clears the current list of finished treatments and repopulates it
+     * based on the selection. Patient lookup is done via {@code searchInList()} using
+     * the selected surname.
+     *
+     * Assumes: the patient list is already populated and that surnames are unique or sufficiently distinguishable.
+     */
     @FXML
     public void handleComboBox() {
         String selectedPatient = this.comboBoxPatientSelection.getSelectionModel().getSelectedItem();
@@ -133,6 +167,15 @@ public class AllFinishedTreatmentController {
         }
     }
 
+    /**
+     * Searches the patient list for a patient with the given surname.
+     *
+     * @param surname the surname to search for
+     * @return the first {@code Patient} object with a matching surname, or {@code null} if no match is found
+     *
+     * Note: This method performs a linear search and assumes that
+     * surnames are either unique or that returning the first match is sufficient.
+     */
     private Patient searchInList(String surname) {
         for (Patient patient : this.patientList) {
             if (patient.getSurname().equals(surname)) {
@@ -142,6 +185,11 @@ public class AllFinishedTreatmentController {
         return null;
     }
 
+    /**
+     * This method handles events fired by the button to delete finished treatments. It calls {@link FinishedTreatmentDao} to delete the
+     * finished treatments from the database and removes the object from the list, which is the data source of the
+     * <code>TableView</code>.
+     */
     @FXML
     public void handleDelete() {
         int index = this.tableView.getSelectionModel().getSelectedIndex();
@@ -174,6 +222,17 @@ public class AllFinishedTreatmentController {
         }
     }
 
+    /**
+     * Handles mouse click events on the treatment table view.
+     *
+     * Registers a listener that detects double-clicks on table rows. When a row is
+     * double-clicked and a treatment is selected, the corresponding {@code Treatment}
+     * object is retrieved from the {@code finishedTreatments} list based on the selected index,
+     * and a detailed treatment window is opened via {@code treatmentWindow()}.
+     *
+     *
+     * Assumes: the {@code finishedTreatments} list is in sync with the table view's displayed items.
+     */
     @FXML
     public void handleMouseClick() {
 
@@ -191,7 +250,18 @@ public class AllFinishedTreatmentController {
         });
     }
 
-
+    /**
+     * Opens a new window displaying the details of a selected finished treatment.
+     *
+     * Loads the {@code FinishedTreatmentView.fxml} layout, initializes its controller
+     * with the provided {@code Treatment} object, and displays the view in a modal window
+     * (blocking the current window until closed).
+     *
+     * @param treatment the {@code Treatment} object to display in the new window
+     *
+     * Note: The main application window remains in the background,
+     * and the new window is non-resizable.
+     */
     public void treatmentWindow(Treatment treatment){
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/FinishedTreatmentView.fxml"));

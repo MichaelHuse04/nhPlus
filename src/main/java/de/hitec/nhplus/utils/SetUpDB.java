@@ -51,6 +51,9 @@ public class SetUpDB {
         }
     }
 
+    /**
+     * This method sets up the table patient.
+     */
     private static void setUpTablePatient(Connection connection) {
         final String SQL = "CREATE TABLE IF NOT EXISTS patient (" +
                 "   pid INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -67,6 +70,9 @@ public class SetUpDB {
         }
     }
 
+    /**
+     * This method sets up the table caregiver.
+     */
     private static void setUpTableCaregiver(Connection connection) {
         final String SQL = "CREATE TABLE IF NOT EXISTS caregiver (" +
                 "   caregiverID INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -81,6 +87,9 @@ public class SetUpDB {
         }
     }
 
+    /**
+     * This method sets up the table treatment.
+     */
     private static void setUpTableTreatment(Connection connection) {
         final String SQL = "CREATE TABLE IF NOT EXISTS treatment (" +
                 "   tid INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -101,6 +110,9 @@ public class SetUpDB {
         }
     }
 
+    /**
+     * This method sets up the table finished_treatment.
+     */
     private static void setUpTableFinishedTreatment(Connection connection) {
         final String SQL = "CREATE TABLE IF NOT EXISTS finished_treatment (" +
                 "   tid INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -122,6 +134,9 @@ public class SetUpDB {
     }
 
 
+    /**
+     * This method inserts examples into patient table.
+     */
     private static void setUpPatients() {
         try {
             PatientDao dao = DaoFactory.getDaoFactory().createPatientDAO();
@@ -136,6 +151,9 @@ public class SetUpDB {
         }
     }
 
+    /**
+     * This method inserts examples into caregiver table.
+     */
     private static void setUpCaregiver() {
         try {
             CaregiverDao dao = DaoFactory.getDaoFactory().createCaregiverDAO();
@@ -146,6 +164,9 @@ public class SetUpDB {
         }
     }
 
+    /**
+     * This method inserts examples into treatment table.
+     */
     private static void setUpTreatments() {
         try {
             TreatmentDao dao = DaoFactory.getDaoFactory().createTreatmentDao();
@@ -164,6 +185,9 @@ public class SetUpDB {
         }
     }
 
+    /**
+     * This method inserts examples into finished_treatment table.
+     */
     private static void setUpFinishedTreatments() {
         try {
             FinishedTreatmentDao dao = DaoFactory.getDaoFactory().createFinishedTreatmentDao();
