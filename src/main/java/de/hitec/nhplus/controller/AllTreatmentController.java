@@ -157,7 +157,7 @@ public class AllTreatmentController {
         this.treatments.clear();
         this.dao = DaoFactory.getDaoFactory().createTreatmentDao();
 
-        if (selectedPatient.equals("alle")) {
+        if ("alle".equals(selectedPatient)) {
             try {
                 this.treatments.addAll(this.dao.readAll());
             } catch (SQLException exception) {
