@@ -6,6 +6,7 @@ import de.hitec.nhplus.datastorage.PatientDao;
 import de.hitec.nhplus.datastorage.FinishedTreatmentDao;
 import de.hitec.nhplus.model.Patient;
 import de.hitec.nhplus.model.Treatment;
+import de.hitec.nhplus.utils.DateConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -153,31 +154,39 @@ public class AllFinishedTreatmentController {
         }
     }
 
+    private void enableButtonIfNeeded() {
+
+        int index = this.tableView.getSelectionModel().getSelectedIndex();
+        Treatment finishedTreatment = this.finishedTreatments.get(index);
+
+        int comparedDateResult = DateConverter.convertLocalDateToString(
+                DateConverter.convertStringToLocalDate(
+                        finishedTreatment.getDate()
+                ).plusYears(10)).compareTo(LocalDate.now().toString());
+        int comparedTimeResult = finishedTreatment.getEnd().compareTo(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
+
+        if (comparedDateResult > 0){
+            buttonDelete.setDisable(true);
+        } else if (comparedDateResult == 0)  {
+            if (comparedTimeResult >= 0){
+                buttonDelete.setDisable(true);
+            }
+        }
+    }
 
     @FXML
     public void handleMouseClick() {
 
+        this.buttonDelete.setDisable(true);
         int index = this.tableView.getSelectionModel().getSelectedIndex();
         Treatment finishedTreatments = this.finishedTreatments.get(index);
 
-        int comparedDateResult = finishedTreatments.getDate().compareTo(LocalDate.now().plusYears(10).toString());
-        int comparedTimeResult = finishedTreatments.getEnd().compareTo(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
-        System.out.println(LocalDate.now().minusYears(10));
-        if (comparedDateResult < 0){
-            buttonDelete.setDisable(true);
-        } else if (comparedDateResult > 0) {
-            buttonDelete.setDisable(false);
-        } else {
-            if (comparedTimeResult < 0){
-                buttonDelete.setDisable(true);
-            } else {
-                buttonDelete.setDisable(false);
-            }
-        }
 
         tableView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2 && (tableView.getSelectionModel().getSelectedItem() != null)) {
                 treatmentWindow(finishedTreatments);
+            } else {
+                enableButtonIfNeeded();
             }
         });
     }

@@ -28,7 +28,6 @@ public class UpdateTreatmentToFinishedTreatment {
                     String SQL = "SELECT * FROM treatment WHERE 1";
                     PreparedStatement preparedStatement = connection.prepareStatement(SQL);
                     ResultSet resultSet = preparedStatement.executeQuery();
-                    System.out.println("Checking treatment for updates...");
                     while (resultSet.next()) {
                         String date = resultSet.getString(4);
                         String timeEnd = resultSet.getString(6);
@@ -89,7 +88,6 @@ public class UpdateTreatmentToFinishedTreatment {
             preparedCopyStatement.setString(8, treatment.getRemarks());
 
             preparedCopyStatement.execute();
-            System.out.println("Moving treatment to finished treatment...");
 
 
             String deleteSQL = "DELETE FROM treatment WHERE tid = ?;";
